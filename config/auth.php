@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'users',
         'passwords' => 'users',
     ],
 
@@ -40,6 +40,21 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'users' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'owners' => [
+            'driver' => 'session',
+            'provider' => 'owners',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
     ],
 
     /*
@@ -63,6 +78,18 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'owners' => [
+            'driver' => 'eloquent',
+            //以前作成したApp\ModelsのOwner
+            'model' => App\Models\Owner::class,
+        ],
+
+        'admin' => [
+            'driver' => 'eloquent',
+            //以前作成したApp\ModelsのAdmin
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
@@ -90,6 +117,23 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'Owners' => [
+            'provider' => 'owners',
+
+            //以前作成したパスワードリセットテーブルに変更
+            'table' => 'owners_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'Admin' => [
+            'provider' => 'admin',
+            //以前作成したパスワードリセットテーブルに変更
+            'table' => 'admin_password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
