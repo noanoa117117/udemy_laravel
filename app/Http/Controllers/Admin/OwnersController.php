@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Owner; //エロクエント
+use Illuminate\Support\Facades\DB; //queryBuilder
+Use Carbon\Carbon;
 
 class OwnersController extends Controller
 {
@@ -13,6 +16,7 @@ class OwnersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+     
      public function __construct()
      {
         $this->middleware('auth:admin');
@@ -20,7 +24,23 @@ class OwnersController extends Controller
 
      public function index()
      {
-        dd('オーナー一覧です');
+        $date_now = Carbon::now();
+        $date_perse = Carbon::parse(now());
+        echo $date_now."</br>"; //echo $date_now->yearで年だけなど使いやすい
+        //echo $date_perse;
+
+        $e_all = Owner::all();
+        $q_get= DB::table('owners')->select('name','created_at')->get();
+        //$q_first = DB::table('owners')->select('name')->first();
+        // $c_test = collect([
+        //     'name' => 'テスト',
+        // ]);
+        
+        // var_dump($q_first);
+
+        // dd($e_all,$e_get,$q_first,$c_test);
+        return view('admin.owners.index', 
+        compact('e_all','q_get')); //compactを使うことで変数をview側に渡すことができる
      }
     
 
