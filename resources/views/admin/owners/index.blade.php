@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      オーナー一覧
+      オーナーの一覧
     </h2>
   </x-slot>
 
@@ -32,7 +32,7 @@
                         作成日</th>
 
                       <th
-                        class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
+                        class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
                       </th>
                     </tr>
                   </thead>
@@ -43,8 +43,9 @@
                       <td class="px-4 py-3">{{ $owner->email }}</td>
                       <td class="px-4 py-3">{{ $owner->created_at->diffForHumans() }}</td>
 
-                      <td class="w-10 text-center">
-                        <input name="plan" type="radio">
+                      <td class="px-4 py-3 ">
+                      <button onclick="location.href='{{ route('admin.owners.edit' ,['owner' => $owner->id] )}}'"
+                       class=" text-white bg-pink-400 border-0 py-2 px-4 focus:outline-none hover:bg-pink-500 rounded ">編集</button>
                       </td>
                     </tr>
                     @endforeach
