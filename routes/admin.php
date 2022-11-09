@@ -28,9 +28,12 @@ use App\Http\Controllers\Admin\OwnersController;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.welcome');
-});
+// Route::get('/', function () {
+//     return view('admin.welcome');
+// });
+
+Route::resource('owners',OwnersController::class)
+->middleware('auth:admin')->except(['show']);//認証されなくてもログインされたら困る
 
 Route::prefix('expired-owners')
 ->middleware('auth:admin')->group(function(){
@@ -43,8 +46,6 @@ Route::prefix('expired-owners')
         ->name('expired-owners.destroy');
 });
 
-Route::resource('owners',OwnersController::class)
-->middleware('auth:admin');//認証されなくてもログインされたら困る
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
