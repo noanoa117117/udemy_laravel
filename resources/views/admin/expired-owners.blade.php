@@ -13,10 +13,10 @@
 
           <section class="text-gray-600 body-font">
             <div class="container px-5  mx-auto">
-               {{--@if(session('message')) 登録メッセージ。今回はコンポーネント--}}
-               <x-flash-message status="session('status')"/>
+              {{--@if(session('message')) 登録メッセージ。今回はコンポーネント--}}
+              <x-flash-message status="session('status')" />
               <div class="flex justify-end mb-4">
-                
+
               </div>
               <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                 <table class="table-auto w-full text-left whitespace-no-wrap">
@@ -41,30 +41,35 @@
                       <td class="px-4 py-3">{{ $owner->email }}</td>
                       <td class="px-4 py-3">{{ $owner->deleted_at->diffForHumans() }}</td>
 
-                        
 
-                      <form id="delete_{{$owner->id}}" method="post" action="{{route('admin.expired-owners.destroy',['owner' => $owner->id] )}}">
+
+                      <form id="delete_{{$owner->id}}" method="post"
+                        action="{{route('admin.expired-owners.destroy',['owner' => $owner->id] )}}">
                         @csrf
-                        
+
                         <td class="px-4 py-3 ">
                           <a href="#" data-id="{{$owner->id}}" onclick="deletePost(this)"
-                          class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">完全に削除</a>
+                            class=" text-white bg-red-400 border-0 py-2 px-4 focus:outline-none hover:bg-red-500 rounded ">完全に削除</a>
                         </td>
-                      <form>
+                        <form>
                     </tr>
                     @endforeach
                   </tbody>
+                </table>
+                {{$expiredOwners->links()}}
+              </div>
+            </div>
           </section>
         </div>
       </div>
     </div>
   </div>
   <script>
-      function deletePost(e){
-         'use strict';
-         if(confirm('本当に削除しますか')){
-            document.getElementById('delete_' + e.dataset.id).submit();
-         }
+    function deletePost(e) {
+      'use strict';
+      if (confirm('本当に削除しますか')) {
+        document.getElementById('delete_' + e.dataset.id).submit();
       }
-   </script>
+    }
+  </script>
 </x-app-layout>

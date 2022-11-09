@@ -27,7 +27,7 @@ class OwnersController extends Controller
      {
         // $date_now = Carbon::now();
         // $date_perse = Carbon::parse(now());
-        // echo $date_now."</br>"; //echo $date_now->yearで年だけなど使いやすい
+        // echo $date_now."</br>"; //echo $date_now->yearで年だけなど
         // //echo $date_perse;
 
         // $e_all = Owner::all();
@@ -38,12 +38,11 @@ class OwnersController extends Controller
         // ]);
         
         // var_dump($q_first);
-
         // dd($e_all,$e_get,$q_first,$c_test);
 
-        $owners=Owner::select('id','name','email','created_at')->get();
+        $owners=Owner::select('id','name','email','created_at')->paginate(3); //->get()
         return view('admin.owners.index', 
-        compact('owners')); //compactを使うことで変数をview側に渡すことができる
+        compact('owners')); //compactで変数をview側に
      }
     
 
@@ -147,7 +146,7 @@ class OwnersController extends Controller
     }
 
     public function expiredOwnerIndex(){    //期限切れオーナー
-        $expiredOwners = Owner::onlyTrashed()->get();
+        $expiredOwners = Owner::onlyTrashed()->paginate(3);
         return view('admin.expired-owners',compact('expiredOwners'));
     }
 
