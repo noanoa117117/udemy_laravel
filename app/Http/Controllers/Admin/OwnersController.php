@@ -150,7 +150,13 @@ class OwnersController extends Controller
         return view('admin.expired-owners',compact('expiredOwners'));
     }
 
-    
+    public function restoreExpiredOwner($id){
+        $restoredOwner = Owner::onlyTrashed()->find($id)->restore();
+
+        return view('admin.owner.index',compact('restoredOwner'))
+                    ->with(['message'=>'オーナー情報を復旧しました',
+                            'status'=>'info',]);
+    }
 
     public function expiredOwnerDestroy($id){
         Owner::onlyTrashed()->findOrFail($id)->forceDelete(); //完全に削除

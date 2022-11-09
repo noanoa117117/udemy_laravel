@@ -41,7 +41,11 @@
                       <td class="px-4 py-3">{{ $owner->email }}</td>
                       <td class="px-4 py-3">{{ $owner->deleted_at->diffForHumans() }}</td>
 
-
+                      <td class="md:px-4 py-3">
+                          <button
+                            onclick="location.href='{{ route('admin.expired-owners.restore' ,['owner' => $owner->id] )}}'"
+                            class=" text-white bg-pink-400 border-0  py-2 px-4 focus:outline-none hover:bg-pink-500 rounded ">復旧</button>
+                      </td>
 
                       <form id="delete_{{$owner->id}}" method="post"
                         action="{{route('admin.expired-owners.destroy',['owner' => $owner->id] )}}">
