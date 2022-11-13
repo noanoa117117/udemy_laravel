@@ -40,9 +40,9 @@ Route::prefix('expired-owners')
 
     Route::get('index',[OwnersController::class,'expiredOwnerIndex'])
         ->name('expired-owners.index');    
-     Route::get('restore',[OwnersController::class,'restoreExpiredOwner'])
+     Route::post('restore/{owner}',[OwnersController::class,'restoreExpiredOwner'])
          ->name('expired-owners.restore');
-         
+
     Route::post('destroy/{owner}',[OwnersController::class,'expiredOwnerDestroy'])
         ->name('expired-owners.destroy');
 });
