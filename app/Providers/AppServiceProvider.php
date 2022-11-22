@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Providers\session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if(request()->is('owner*')){
+            config(['session.cookie' => config('session.cookie_owner')]);
+        }
+        if(request()->is('admin*')){
+            config(['session.cookie' => config('session.cookie_admin')]);
+        }
     }
 }
