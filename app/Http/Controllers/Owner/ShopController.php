@@ -21,7 +21,7 @@ class ShopController extends Controller
             $shopsOwnerId = Shop::findOrFail($id)->owner->id;
             $shopId = (int)$shopsOwnerId;
             $ownerId = Auth::id();
-               if($shopId!==$ownerId){
+               if($shopId !== $ownerId){
                   abort(404);
               }
          }
@@ -32,8 +32,7 @@ class ShopController extends Controller
 
       public function index()
      {
-        $ownerId = Auth::id();
-        $shops = Shop::where('owner_id',$ownerId)->get();
+        $shops = Shop::where('owner_id',Auth::id())->get();
 
         return view('owner.shops.index',compact('shops'));
      }
